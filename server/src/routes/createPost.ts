@@ -32,6 +32,13 @@ router.post('/post', upload.single('image'), async(req : Request, res:Response, 
      user:res.locals.currentUser
   })
 
+  if(!req.body.text || req.files){
+    return(
+      res.statusCode = 400,
+      res.send("Please fill all fields")
+    )
+  }
+
   post.save()
 
   if(post){

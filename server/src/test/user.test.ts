@@ -84,7 +84,7 @@ describe("User test",()=>{
 
 
     const result: any = await graphql({ schema, source: mutation });
-    //console.log(result.data.create._id)
+
 
     expect(result.data.create.userName).toEqual("swag")
 
@@ -96,9 +96,7 @@ describe("User test",()=>{
     };
 
     const user: any = await graphql({ schema, source: query , contextValue: ctx });
-    //console.log(result.data.create._id)
-    //console.log(user)
- 
+  
     expect(user.data.findUserByUsername.userName).toEqual("swag")
 
 
@@ -147,7 +145,7 @@ describe("User test",()=>{
 
 
     const login: any = await graphql({ schema, source: loginMuttion, contextValue:ctx});
-    console.log(login)
+
 
     expect(login.data.login).toBeDefined()
 
@@ -203,7 +201,7 @@ describe("User test",()=>{
             userToFollow: "${user2.data.create._id}"
           })
       }`
-      console.log("user 2",user2.data.create._id)
+
 
       const ctx ={
         user: `${user1.data.create._id}`
