@@ -107,7 +107,54 @@ describe("User test",()=>{
 
 
 
-  it("should follow User", async()=>{
+
+
+  it("should login",async()=>{
+    const mutation1  = `mutation {
+      create(input: {
+        userName:"swag",
+        email: "swag_boy@gma400.com",
+        password: "126",
+        password2:"126",
+        dateOfBirth:"1995-October-24"
+      }) {
+        _id,
+        userName,
+        email,
+        followers,
+        following,
+        userName
+  
+      
+      }
+    }`
+
+   await graphql({ schema, source: mutation1});
+
+    const loginMuttion = `mutation {
+      login(input:{
+        userName_Email:"swag",
+        password:"126"
+      })
+  }`
+
+  const ctx={
+    res: {
+      header: jest.fn(),
+      cookie: jest.fn()
+    },
+  }
+
+
+    const login: any = await graphql({ schema, source: loginMuttion, contextValue:ctx});
+    console.log(login)
+
+    expect(login.data.login).toBeDefined()
+
+
+  })
+
+  it("should follow User then Unfollow that user", async()=>{
      const mutation1  = `mutation {
            create(input: {
              userName:"swag",
@@ -184,55 +231,47 @@ describe("User test",()=>{
     
     
         const result: any = await graphql({ schema, source: query });
-        //console.log(result.data.create._id)
+    
       
 
 
          expect(user1.data.create.userName).toEqual("swag")
          expect(user2.data.create.userName).toEqual("swag2")
 
-         console.log("here you go",result.data.findUserByUsername.following)
-         console.log(followUser)
-
+   
          expect(result.data.findUserByUsername.following[0]).toEqual(`${user2.data.create._id}`)
+
+
+         const unfollowMutation = `
+         mutation {
+             unfollow(input:{
+              userToFollow: "${user2.data.create._id}"
+
+             })
+         }
+         `
+         
+
+
+         
+
+        await graphql({ schema, source: unfollowMutation , contextValue :ctx});    
+    
+        const result2: any = await graphql({ schema, source: query });
+        expect(result2.data.findUserByUsername.following).toEqual([])
+    
+
        //  
 
 
+  
 
   })
 
 
 
-// it("should register two users", async () => {
-//   const mutation2 =`mutation {
-//     create(input: {
-//       userName:"swag",
-//       email: "swag_boy@gma400.com",
-//       password: "126",
-//       password2:"126",
-//       dateOfBirth:"1995-October-24"
-//     }) {
-//       _id
-//       userName,
-//       email
-// 
-//     
-//     }
-//   }`;
-//
-//
-//
-//
-//
-//
-//   const result: any = await graphql({ schema, source: mutation2 });
-//  // console.log(result.data.create._id)
-//   expect(result.data.create.userName).toEqual("swag")
-// 
-//
-//
-//
-// }, );
+
+
 
 
 
