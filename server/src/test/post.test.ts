@@ -1,13 +1,13 @@
 import request from 'supertest';
-import multer from 'multer';
+
 import path from 'path';
 //import { createPost } from './yourRouteHandler';
 import { app } from '../utils/rotuesServer';
-import { GraphQLSchema } from "graphql";
 import mongoose from 'mongoose';
-import { PostModel } from '../model/post.schema';
 
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import fs from 'fs';
+
 // Create an Express app
 
 
@@ -53,6 +53,35 @@ beforeEach( async ()=>{
 afterEach(async () => {
   await mongoose.disconnect();
   await mongoServer.stop() ;
+ 
+
+const directoryPath = 'public/media/posts/testpost';
+//public/media/posts/testpost
+
+setTimeout(()=>{fs.readdir(directoryPath, (err, files) => {
+  if (err) {
+    console.error('Error reading directory:', err);
+    return;
+  }
+
+  files.forEach( (file) => {
+    const filePath = path.join(directoryPath, file);
+
+    fs.unlink(filePath, (error) => {
+      if (error) {
+        console.error('Error deleting file:', error);
+      }
+    });
+  });
+});},
+
+
+3000)
+
+
+
+
+  
 });
 
 
@@ -77,7 +106,6 @@ describe('createPost', () => {
     // Perform the query
     const result = await YourModel.find({ text: { $gt: "Test post" } });
 
-    console.log(result)
 
     //xpect(result[0]).toBe("Test post")
 

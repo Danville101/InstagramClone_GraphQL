@@ -10,11 +10,11 @@ const router = express.Router();
 // Configure multer to save uploaded files to the public/image directory
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/media/posts');
+    cb(null,  process.argv[1].includes("jest") ? 'public/media/posts/testpost' :'public/media/posts');
   },
   filename: (req, file, cb) => {
     const extension = path.extname(file.originalname);
-    const filename = Date.now() + extension;
+    let filename = process.argv[1].includes("jest")  ?  `${Date.now()}Test${extension}` : Date.now() + extension ;
     cb(null, filename);
   }
 });
