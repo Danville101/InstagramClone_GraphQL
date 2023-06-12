@@ -32,7 +32,7 @@ router.post('/post', upload.single('image'), async(req : Request, res:Response, 
      user:res.locals.currentUser
   })
 
-  if(!req.body.text || req.files){
+  if(!req.body.text || !req.file){
     return(
       res.statusCode = 400,
       res.send("Please fill all fields")
@@ -41,15 +41,19 @@ router.post('/post', upload.single('image'), async(req : Request, res:Response, 
 
   post.save()
 
-  if(post){
-     res.statusCode=200
-     res.send("post created")
+  if(post){ 
+     
+     res.status(200).json({ post, text:"Post created" })
+   
+   
+     console.log(post)
+   
    }else{
      res.statusCode=400
      res.send("please try again ")
  
    }
- 
+  
 
 });
 

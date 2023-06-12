@@ -1,9 +1,11 @@
 import request from 'supertest';
-
+import { GraphQLSchema, graphql } from "graphql";
 import path from 'path';
 //import { createPost } from './yourRouteHandler';
 import { app } from '../utils/rotuesServer';
 import mongoose from 'mongoose';
+import { buildSchema } from "type-graphql";
+import { resolvers } from "../reslovers";
 
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import fs from 'fs';
@@ -33,10 +35,16 @@ const res = {
 
 
 let mongoServer: MongoMemoryServer;
+let schema: GraphQLSchema;
 
 
 beforeEach( async ()=>{
  
+     schema = await buildSchema({
+          resolvers,
+          validate: true,
+        });
+      
 
    mongoServer = await MongoMemoryServer.create();
    let mongoUri = mongoServer.getUri();
@@ -90,16 +98,70 @@ setTimeout(()=>{fs.readdir(directoryPath, (err, files) => {
 // Test the route handler function
 describe('createPost', () => {
   it('should create a new post', async () => {
-  
+     const mutation1  = `mutation {
+          create(input: {
+            userName:"swag",
+            email: "swag_boy@gma400.com",
+            password: "126",
+            password2:"126",
+            dateOfBirth:"1995-October-24"
+          }) {
+            _id,
+            userName,
+            email,
+            followers,
+            following,
+            userName
+      
+          
+          }
+        }`
+    
+       await graphql({ schema, source: mutation1});
+    
+        const loginMuttion = `mutation {
+          login(input:{
+            userName_Email:"swag",
+            password:"126"
+          })
+      }`
+    
+      const ctx={
+        res: {
+          header: jest.fn(),
+          cookie: jest.fn()
+        },
+      }
+    
+    
+        const login: any = await graphql({ schema, source: loginMuttion, contextValue:ctx});
+    
+    
+        expect(login.data.login).toBeDefined()
+    
+
+
+
+
+   
+    
+    
 
     // Perform the request
    const posty = await  request(app)
       .post('/post')
       .field('text', req.body.text)
       .attach('image', req.file.buffer, req.file.originalname)
+      .set("Cookie",`acceesToken=${login.data.login}`)
+      .expect(200)
+      .then(response => {
+          console.log(response)
+      })
 
 
      const YourModel = mongoose.model('Post');
+
+     
 
     // Create some test data
  
@@ -108,14 +170,17 @@ describe('createPost', () => {
     const result = await YourModel.find({ text: { $gt: "Test post" } });
 
 
-    //xpect(result[0]).toBe("Test post")
 
+
+
+    //xpect(result[0]).toBe("Test post")
+  
 
 
 
 
     // Assert the response
-    expect(posty.statusCode).toBe(200);
+   // expect(posty.statusCode).toBe(200);
 
 
    // expect(res.send).toHaveBeenCalledWith('post created');
