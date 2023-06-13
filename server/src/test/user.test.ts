@@ -5,10 +5,7 @@ import { GraphQLSchema, graphql } from "graphql";
 import { gql } from "apollo-server-core";
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import Context from "../interface/context";
-import { request } from "https";
-import { response } from "express";
-import { async } from "rxjs";
+;
 let schema: GraphQLSchema;
 let mongoServer: MongoMemoryServer;
 

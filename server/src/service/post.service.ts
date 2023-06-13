@@ -52,9 +52,6 @@ export class PostService {
   async createLike(createLikeInput: CreateLikeInput, ctx: Context) {
    
 
-      ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-      ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      ctx.res.header("Access-Control-Allow-Credentials", "true");
       await PostModel.updateOne(
       {_id: createLikeInput.postId},
       {
@@ -70,9 +67,7 @@ export class PostService {
   async unLike(createLikeInput: CreateLikeInput, ctx: Context) {
    
 
-    ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    ctx.res.header("Access-Control-Allow-Credentials", "true");
+  
   await  PostModel.updateOne(
       {_id: createLikeInput.postId},
       {
@@ -90,9 +85,7 @@ export class PostService {
 
   async fineMyPosts(ctx: Context) {
 
-      ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    ctx.res.header("Access-Control-Allow-Credentials", "true");
+    
     const posts = await PostModel.find(
       {user: ctx.user}
       
@@ -105,9 +98,6 @@ export class PostService {
 
   async finePostsByUsername(userInput:FindUserByUsernameInput,ctx: Context) {
 
-      ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    ctx.res.header("Access-Control-Allow-Credentials", "true");
 
     const user= await UserModel.findOne({userName:userInput.username})
     const posts = await PostModel.find(
@@ -140,9 +130,6 @@ async getFeeds(ctx:Context){
 
    feeds.push(followingPost)
 
-   ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-   ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   ctx.res.header("Access-Control-Allow-Credentials", "true");
 
 
 
@@ -153,9 +140,7 @@ async getFeeds(ctx:Context){
    return newpack
   }
 
- ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  ctx.res.header("Access-Control-Allow-Credentials", "true");
+
 
  // console.log(feeds)
  
@@ -168,9 +153,6 @@ async getFeeds(ctx:Context){
 async findPostByid(id: CreateLikeInput, ctx:Context){
 
   const post = PostModel.findById(id.postId)
-  ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  ctx.res.header("Access-Control-Allow-Credentials", "true");
 
   return post
 
