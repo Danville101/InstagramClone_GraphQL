@@ -45,8 +45,7 @@ router.post('/post', upload.single('image'), async(req : Request, res:Response, 
      
      res.status(200).json({ post, text:"Post created" })
    
-   
-     console.log(post)
+  
    
    }else{
      res.statusCode=400

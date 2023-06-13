@@ -36,9 +36,7 @@ export class CommentResolver {
           {participant: ctx.user}
      ]
    }).sort({ updatedAt : -1})
-   ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  ctx.res.header("Access-Control-Allow-Credentials", "true");
+ 
 
    return conversations
     
@@ -60,9 +58,7 @@ export class CommentResolver {
 
      comment.save()
 
-     ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-     ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-     ctx.res.header("Access-Control-Allow-Credentials", "true");
+
 
     return comment
 
@@ -86,9 +82,7 @@ async createCommentLike(
      },
    );
 
-     ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-     ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-     ctx.res.header("Access-Control-Allow-Credentials", "true");
+   
 
    return 'done'
 
@@ -111,9 +105,7 @@ async unLikeComment(
      },
    );
 
-     ctx.res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-     ctx.res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-     ctx.res.header("Access-Control-Allow-Credentials", "true");
+
    return 'done'
 
 }

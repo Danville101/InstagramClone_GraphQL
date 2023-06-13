@@ -145,6 +145,109 @@ describe('createPost', () => {
 
   });
 
+
+  it(" Should comment on a post ",async()=>{
+
+
+
+    const mutation1  = `mutation {
+      create(input: {
+        userName:"swag2",
+        email: "swag_boy@gma4002.com",
+        password: "126",
+        password2:"126",
+        dateOfBirth:"1995-October-24"
+      }) {
+        _id,
+        userName,
+        email,
+        followers,
+        following,
+        userName
+  
+      
+      }
+    }`
+  
+   const user2:any =await graphql({ schema, source: mutation1});
+  
+  
+  
+  
+     const posty = await  request(app)
+     .post('/post')
+     .field('text', req.body.text)
+     .attach('image', req.file.buffer, req.file.originalname)
+     .set("Cookie",`acceesToken=${login.data.login}`)
+     .expect(200)
+
+     const commentText = "Looks great I must say"
+  
+     const commentPost = `mutation{
+      createComment(input:{
+        postId:"${posty.body.post._id}",
+        text: "${commentText}"
+      }){
+          text
+  
+  
+      }
+  
+  }`
+  
+  
+  const ctx2={
+    user: `${user2.data.create._id}`
+  }
+  
+  
+  const commentMut =await graphql({ schema, source: commentPost, contextValue: ctx2});
+  
+
+  
+  
+   const postQuery = `query {
+    findPost(input:{
+      postId:"${posty.body.post._id}"
+    }){
+        _id
+        likes
+        media
+        owner{
+            profilePicture
+            userName
+            _id
+        }
+        comments{
+            findUser{
+                _id
+        profilePicture
+        userName
+            }
+            id
+            likes
+            creator
+            text
+        }
+        text
+        user
+  
+    }
+  
+  }`
+  
+  
+  const getPost:any = await graphql({ schema, source: postQuery , contextValue: ctx2});
+
+
+  
+  
+  
+  expect(getPost.data.findPost.comments[0].text).toBe(commentText)
+  
+  
+    })
+
   it('should handle an error during post creation', async () => {
 
 
@@ -161,7 +264,7 @@ describe('createPost', () => {
   });
 
 
-  it("It should like a post ",async()=>{
+  it("should like a post ",async()=>{
 
 
 
@@ -275,5 +378,9 @@ const getPost:any = await graphql({ schema, source: postQuery , contextValue: ct
 expect(getPost.data.findPost.likes[0]).toBe(user2.data.create._id)
 
 
-  })
+  });
+
+
+
+ 
 });
