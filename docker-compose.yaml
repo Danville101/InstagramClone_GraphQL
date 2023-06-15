@@ -24,7 +24,7 @@ services:
     volumes:
       - ./backend:/backend/
     ports:
-      - "8080:8080"
+      - "4040:4040"
     links:
       - mongo
     environment:
