@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FaBeer , FaPlay } from 'react-icons/fa'
+import { useState } from 'react'
 const UserProfile = ({username}) => {
   const router = useRouter()
 
@@ -59,11 +60,22 @@ const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDTWEETBYUSERNAME, FIND
         }
       }
     })
+
+
+    const [immy, setImmy]= useState("")
+    
   const {loading, error,data} = useQuery(FINDDUSERBYUSERNAME,{variables:{
     input:{
       username
     }
   }, onCompleted(data) {
+    if(process.env.NEXT_PUBLIC_IMAGE_URL != "backend"){
+      setImmy(data.findUserByUsername.profilePicture)
+
+ }else{
+      let str= String(data.findUserByUsername.profilePicture).replace("127.0.0.1","backend")
+      setImmy(str)
+ }
 
       
   },
@@ -103,7 +115,7 @@ const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDTWEETBYUSERNAME, FIND
 
 
 <div className='flex items-center pt-4 pl-2 space-x-4 text-white'>
-<Image src={data.findUserByUsername.profilePicture} height={60} width={60} alt='profilePic' className='rounded-full '/>
+<Image src={immy} height={60} width={60} alt='profilePic' className='rounded-full '/>
 <div className='flex flex-col space-y-2'>
 <div className='flex space-x-2 font-bold'>  <p>{data.findUserByUsername.userName}</p> 
 {user.userName == username?<UilSetting/>:""}
@@ -180,7 +192,7 @@ hhh
            <div>{ String(e.media).includes("mp4")?     
            
            
-           <button className='relative object-cover w-40 h-40 md:w-60 md:h-60 overflow-clip'><video src={`http://127.0.0.1:4040/${e.media}`}  className=""  >
+           <button className='relative object-cover w-40 h-40 md:w-60 md:h-60 overflow-clip'><video src={`http://${process.env.NEXT_PUBLIC_IMAGE_URL}:4040/${e.media}`}  className=""  >
           
             
             
@@ -192,7 +204,7 @@ hhh
             
             </button>
            :      
-           <div className='relative w-40 h-40 md:w-60 md:h-60'>  <Image src={`http://127.0.0.1:4040/${e.media}`} layout='fill' alt={e.text} />
+           <div className='relative w-40 h-40 md:w-60 md:h-60'>  <Image src={`http://${process.env.NEXT_PUBLIC_IMAGE_URL}:4040/${e.media}`} layout='fill' alt={e.text} />
 </div>
          
                }</div>

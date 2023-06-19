@@ -256,7 +256,7 @@ const Converstion = ({receiver}) => {
      messages.map((e:any,i:any)=>(
       <div className=" border-t-green-700" key={i}>
            <div className='flex flex-col w-full ' >{
-               String(e.text).includes("http://127.0.0.1:4040/media/message/")?
+               String(e.text).includes(`4040/media/message/`)?
                 
                 
                 

@@ -109,7 +109,7 @@ const Feeds = ({e}) => {
           <div className='relative flex items-center justify-center w-full h-full hover:cursor-pointer' onClick={play}> 
       <video  ref={videoRef}  loop className='object-contain overflow-clip' muted={mutedState=="true"} >
 
-              <source src={`http://127.0.0.1:4040/${e.media}`} type='video/mp4'/>
+              <source src={`http://${process.env.NEXT_PUBLIC_IMAGE_URL}:4040/${e.media}`} type='video/mp4'/>
             </video>
 
             <FaPlay className={`absolute text-white opacity-90 w-20 h-20 ${!paused?"scale-0":"scale-100"} duration-300`}/>
@@ -120,7 +120,7 @@ const Feeds = ({e}) => {
 
 
            :   <div className='relative w-full h-96'>
-             <Image src={`http://127.0.0.1:4040/${e.media}`} layout='fill' alt={e.text} className='rounded-md'/>
+             <Image src={`http://${process.env.NEXT_PUBLIC_IMAGE_URL}:4040/${e.media}`} layout='fill' alt={e.text} className='rounded-md'/>
            </div>   
 
                }</div>

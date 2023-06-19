@@ -20,6 +20,7 @@ import { useMutation } from '@apollo/client'
 const Reels = () => {
 
      const router = useRouter()
+     const [reelPresent, setReelsPresent]= useState(true)
 
      const [list, setList]=useState([])
 
@@ -27,10 +28,10 @@ const Reels = () => {
           onCompleted(data) {
 
                setList(    data.getReel)
-           
 
-               
-       
+
+
+
           },
      })
 
@@ -38,27 +39,45 @@ const Reels = () => {
 
      useEffect(()=>{
       if(data){
+          if( data.getReel.length == 0){
+
+
+               setReelsPresent(false)
+
+               setTimeout(()=>{ router.push("/")},1000)
+
+
+          }else{
+                        console.log(data)
            router.replace(`reels/${list[0]["_id"]}`)
+          }
+
+      }if(error){
+
       }
-   
-        
-        
+
+
+
 
      })
- 
+
        if(loading){
           return(<div className='relative flex items-center justify-center w-screen h-screen py-20 text-white'>
           <Image src={'/loading.svg'} layout='fill' alt='' />
         </div>)
+       }if(!reelPresent){
+          return(
+               <div className='items-center justify-center w-screen h-screen'>
+               <p className="text-white">No Reels</p>
+
+          </div>
+          )
        }
-   
+
 
 }
 
 
 
 export default withApollo( Reels )
-
-
-
 

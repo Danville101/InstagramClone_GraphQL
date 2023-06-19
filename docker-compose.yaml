@@ -41,6 +41,8 @@ services:
     command: npm run dev
     ports:
       - "3000:3000"
+    environment:
+     - NEXT_PUBLIC_IMAGE_URL=backend
     links:
       - backend
     depends_on:

@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import { useSubscription } from '@apollo/client'
 import { useRef } from 'react'
 import { FaBeer , FaPlay } from 'react-icons/fa'
+import { use } from 'express/lib/application'
 const MobileBottomNav = () => {
 
      const { user }  = useContext(PageContext)
@@ -58,10 +59,23 @@ const MobileBottomNav = () => {
      }, 
     }, )
 
+    const [immy, setImmy]= useState("")
+
+
+   
+
      const {loading, error,data} = useQuery(FINDME,
           
           { onCompleted(data) {
-               setUser(data.findMe)}
+               setUser(data.findMe);
+           if(process.env.NEXT_PUBLIC_IMAGE_URL != "backend"){
+             setImmy(data.findMe.profilePicture)
+     
+        }else{
+             let str= String(data.findMe.profilePicture).replace("127.0.0.1","backend")
+             setImmy(str)
+        }
+          }
           
           }
             )
@@ -121,8 +135,9 @@ const MobileBottomNav = () => {
                else{
                     return false
                }
-          }
-          
+          };
+
+        
 
 
           const videoRef = useRef(null)
@@ -320,7 +335,7 @@ Select From Device
      {
           loading? <UilUser/>:
           
-     <Link href={`/${data.findMe.userName}`}><div className='relative w-5 h-5'> <Image src={data.findMe.profilePicture} layout='fill' alt='profilePic' className='rounded-full'/></div>
+     <Link href={`/${data.findMe.userName}`}><div className='relative w-5 h-5'> <Image src={immy} layout='fill' alt='profilePic' className='rounded-full'/></div>
           
            </Link>
 
