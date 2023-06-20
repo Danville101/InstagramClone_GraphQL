@@ -21,8 +21,6 @@ services:
   backend:
     build: ./server
     command: npm run dev
-    volumes:
-      - ./backend:/backend/
     ports:
       - "4040:4040"
     links:
