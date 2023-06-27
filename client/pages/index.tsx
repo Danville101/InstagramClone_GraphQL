@@ -117,5 +117,5 @@ useEffect(()=>{
   )
 }
 
-
+export {Home}
 export default withApollo(  Home ,{getDataFromTree})

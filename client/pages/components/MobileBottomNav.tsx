@@ -165,7 +165,7 @@ const MobileBottomNav = () => {
              
                 
               })
-
+       
               const [searchSlide, setSearchSlide]=useState(false)
 
               const [phrase, setPhrase]=useState("")
@@ -180,7 +180,7 @@ const MobileBottomNav = () => {
                    
                    }
                      )
-           
+             
           if(loading){
                return(
                     <div>hhh</div>
@@ -190,8 +190,11 @@ const MobileBottomNav = () => {
             
      
   return (<div className='overflow-x-hidden md:flex'>   
-     <div className={`'w-screen h-screen bg-gray-500 bg-opacity-10 overflow-hidden flex justify-center items-center z-50  text-white ${addPost?"block":"hidden"} flex justify-center items-center md:absolute md:w-screen `}>
-          <UilTimes className="absolute text-white top-24 right-10" onClick={()=>setAddPost(false)}/>
+     <div className={`'w-screen h-screen bg-gray-500 bg-opacity-10 overflow-hidden flex justify-center items-center z-50  text-white ${addPost?"block ":"hidden"} flex justify-center items-center md:absolute md:w-screen `} data-testid="main" >
+          <button  data-testid="closeCreate">
+                         <UilTimes className="absolute text-white top-24 right-10" onClick={()=>setAddPost(false)}   />
+          </button>
+
 
           
           <div className={`bg-[#262626] w-80 h-80 rounded-2xl ${image==null?"":"hidden"}`}>
@@ -307,7 +310,7 @@ Select From Device
 </Link>
 
 
-<button className='flex items-center space-x-2 text-xs'>     <UilFocusAdd onClick={()=>setAddPost(true)}/>
+<button className='flex items-center space-x-2 text-xs' data-testid="creator">     <UilFocusAdd onClick={()=>setAddPost(true)} />
 
           <p className='hidden lg:block'>Create</p>
           </button>
@@ -427,6 +430,6 @@ Select From Device
 }
 
 
-
+export {MobileBottomNav}
 
 export default withApollo(MobileBottomNav ,{getDataFromTree})

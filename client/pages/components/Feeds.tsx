@@ -160,5 +160,5 @@ const Feeds = ({e}) => {
   )
 }
 
-
+export {Feeds}
 export default withApollo( Feeds ,{getDataFromTree})

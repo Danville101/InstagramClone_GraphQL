@@ -21,9 +21,6 @@ let token = cook?.split(":")
 
 
 
-
- import  createUploadLink   from 'apollo-upload-client'
-
 const wsLink =
     typeof window !== "undefined"
         ? new GraphQLWsLink(

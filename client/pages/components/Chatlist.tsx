@@ -198,7 +198,7 @@ return time
   )
 }
 
-
+export {Chatlist}
 
 export default withApollo( Chatlist,)
 

@@ -1,8 +1,10 @@
- import { PageContext } from '../pages/context/AuthContext';
-import {MobileBottomNav} from '../pages/components/MobileBottomNav';
+import { PageContext } from '../pages/context/AuthContext';
 import { MockedProvider } from "@apollo/client/testing";
-import { FINDME,CONVOLIST, SEARCHUSER} from '../graphql/quaries'
+import { FINDME,CONVOLIST, SEARCHUSER, GETFEED} from '../graphql/quaries'
 // Wrap the component with a test provider
+import {Home} from '../pages/index'
+import { Feeds } from '../pages/components/Feeds';
+
 import React from 'react';
 import { render, screen, waitFor , fireEvent, act} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -28,7 +30,7 @@ const mockUser = {
 };
 
 
-const searchedUser = [
+const mockSearchedUser = [
   {
       _id: "647dca1a1fb0765f0c7be844",
       userName: "Brain",
@@ -48,6 +50,26 @@ const mockConvo = [
     },
   },
 ];
+
+const mockFeeds =
+  {
+    _id :"647dca1a1fb0765f0c7be8456",
+  media:"/post.jpeg",
+  likes:[],
+  text:"new kicks",
+  user:"647dca1a1fb0765f0c7be846",
+  comment:"",
+  comments:[],
+  owner:{
+      _id:"647dca1a1fb0765f0c7be846",
+      profilePicture:"/testProfilePicture.jpg",
+      userName:"swag",
+ 
+
+  }
+}
+
+
 
 const mocks = [
   {
@@ -83,14 +105,24 @@ const mocks = [
     },
     result: {
       data: {
-        searchUser: searchedUser,
+        searchUser: mockSearchedUser,
+      },
+    },
+  },
+  {
+    request: {
+      query: GETFEED,
+    },
+    result: {
+      data: {
+        getFeed: mockFeeds,
       },
     },
   },
 
 ];
 
-describe('Testing MobileBottomNav', () => {
+describe('test Feed', () => {
   it('renders the component', async () => {
 
 
@@ -105,7 +137,7 @@ describe('Testing MobileBottomNav', () => {
       <MockedProvider mocks={mocks} addTypename={false}>
 
      
-      <MobileBottomNav />
+      <Feeds e={mockFeeds} />
  
      </MockedProvider>
    </PageContext.Provider>  
@@ -113,15 +145,9 @@ describe('Testing MobileBottomNav', () => {
 
 
 
-    await waitFor(() => {
 
 
-
-     expect(screen.getByText('Home').className).toContain("hidden lg:block");
-      expect(screen.getByText('Insta')).toBeDefined();
-    
-    });
-
+           expect(  screen.getByText('new kicks')).toBeDefined();
 
 
 

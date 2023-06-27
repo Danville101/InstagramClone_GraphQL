@@ -274,7 +274,7 @@ onMouseLeave={()=>{videoRef.current.pause()}}
 
             <video  ref={videoRef}  className='h-screen rounded-lg' playsInline loop  muted={mute}  >
 
-              <source src={`http://127.0.0.1:4040${e.video}`}  type='video/mp4'/>
+              <source src={`http://${process.env.NEXT_PUBLIC_IMAGE_URL}:4040${e.video}`}  type='video/mp4'/>
             </video>
 
             <div onClick={play} className='absolute w-full h-[80%] flex justify-center items-center'>
