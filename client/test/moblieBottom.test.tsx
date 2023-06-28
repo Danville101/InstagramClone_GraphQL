@@ -90,6 +90,10 @@ const mocks = [
 
 ];
 
+
+
+
+
 describe('Testing MobileBottomNav', () => {
   it('renders the component', async () => {
 

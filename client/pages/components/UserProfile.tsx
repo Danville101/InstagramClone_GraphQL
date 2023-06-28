@@ -7,7 +7,7 @@ import { PageContext } from '../context/AuthContext'
 import MobileBottomNav from './MobileBottomNav'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment ,UilAngleLeft} from '@iconscout/react-unicons'
 import { useQuery, useMutation } from '@apollo/client'
-import { FINDME , FINDEMYTWEET, FINDDUSERBYUSERNAME, FINDTWEETBYUSERNAME, FOLLOW, UNFOLLOW} from '../../graphql/quaries'
+import { FINDME , FINDEMYTWEET, FINDDUSERBYUSERNAME, FINDPOSTBYUSERNAME, FOLLOW, UNFOLLOW} from '../../graphql/quaries'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -17,7 +17,7 @@ const UserProfile = ({username}) => {
   const router = useRouter()
 
 
-const[unFollowUser]=useMutation(UNFOLLOW, {refetchQueries:[FINDTWEETBYUSERNAME, FINDDUSERBYUSERNAME  ]})
+const[unFollowUser]=useMutation(UNFOLLOW, {refetchQueries:[FINDPOSTBYUSERNAME, FINDDUSERBYUSERNAME  ]})
 const removeFollow = (e:any,id:string)=>{
   e.preventDefault()
  
@@ -34,7 +34,7 @@ const removeFollow = (e:any,id:string)=>{
 
 
 
-const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDTWEETBYUSERNAME, FINDDUSERBYUSERNAME  ]})
+const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDPOSTBYUSERNAME, FINDDUSERBYUSERNAME  ]})
 
   const addFollow = (e:any,id:string)=>{
     e.preventDefault()
@@ -53,7 +53,7 @@ const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDTWEETBYUSERNAME, FIND
      const { user} = useContext(PageContext)
 
 
-    const {loading:loading2, error:error2,data:data2}= useQuery(FINDTWEETBYUSERNAME,{
+    const {loading:loading2, error:error2,data:data2}= useQuery(FINDPOSTBYUSERNAME,{
       variables:{
         input:{
           username
@@ -226,5 +226,7 @@ hhh
   )
 }
 
+
+export {UserProfile}
 
 export default withApollo( UserProfile ,{getDataFromTree})

@@ -117,8 +117,8 @@ for(let i=1902; i<=year; i++){
         <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500' value={userName} onChange={(e)=>setUserName(e.target.value)}  type="text" placeholder='Name'/>
 
         <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500' value={email} onChange={(e)=>setEmail(e.target.value)}  type="email" placeholder='Email'/>
-        <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500'  value={password} onChange={(e)=>setPassword(e.target.value)}  type="password" placeholder='Password'/>
-        <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500'   value={password2} onChange={(e)=>setPassword2(e.target.value)}type="password" placeholder='Password'/> 
+        <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500'  value={password} onChange={(e)=>setPassword(e.target.value)}  type="password" placeholder='Password' data-testid="Password1"/>
+        <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500'   value={password2} onChange={(e)=>setPassword2(e.target.value)}type="password" placeholder='Password'  data-testid="Password2"/> 
 
         <div className='text-xl font-bold' >Date of birth</div>
 
@@ -127,7 +127,7 @@ for(let i=1902; i<=year; i++){
         <div className='flex justify-between w-80 ' >
           
           
-            <select value={birthMonth} onChange={(e)=>setBirthMonth(e.target.value)} className='w-32 py-4 pl-2 border-2 rounded-md outline-none focus:border-sky-500'  placeholder='Day' defaultValue={""} >
+            <select value={birthMonth} onChange={(e)=>setBirthMonth(e.target.value)} className='w-32 py-4 pl-2 border-2 rounded-md outline-none focus:border-sky-500'  placeholder='Month' defaultValue={""} >
 
 {months.map((month,i)=>(
     <option key={i} value={month}>{month}</option>
@@ -148,7 +148,7 @@ for(let i=1902; i<=year; i++){
 
             
           
-         <select value={birthYear} onChange={(e)=>setBirthYear(e.target.value)} className='w-20 py-4 pl-2 border-2 rounded-md outline-none focus:border-sky-500'  placeholder='Day' defaultValue={""} >
+         <select value={birthYear} onChange={(e)=>setBirthYear(e.target.value)} className='w-20 py-4 pl-2 border-2 rounded-md outline-none focus:border-sky-500'  placeholder='Year' defaultValue={""} >
 
           {years.map((year,i)=>(
               <option key={i} value={year}>{year}</option>
@@ -159,7 +159,7 @@ for(let i=1902; i<=year; i++){
        
 </div>
          
-        <input type='submit' value="Next" className='absolute px-1 py-4 text-white duration-500 bg-gray-500 rounded-full hover:opacity-70 active:scale-90 w-80 bottom-4'  />
+        <input type='submit' value="Next" className='absolute px-1 py-4 text-white duration-500 bg-gray-500 rounded-full hover:opacity-70 active:scale-90 w-80 bottom-4'  data-testid="submit" />
         
       </form>
         <div>
@@ -172,6 +172,8 @@ for(let i=1902; i<=year; i++){
     </div>
   )
 }
+
+export {Register}
 
 export default withApollo( Register,{getDataFromTree});
 

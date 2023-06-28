@@ -237,7 +237,7 @@ query FindUserByUserName($input: FindUserByUsernameInput!){
 `
 
 
-export const FINDTWEETBYUSERNAME= gql`
+export const FINDPOSTBYUSERNAME= gql`
 query FinePostByUsername($input: FindUserByUsernameInput!){
     finePostsByUsername(input:$input){
         _id
