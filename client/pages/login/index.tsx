@@ -57,34 +57,22 @@ const autherize = async(e:any)=>{
       }
     }
   })
-  console.log("look yah",results)
-  //router.push("/feed")
-  //await router.replace(router.asPath)
+
+
 
 }
   return (
-    <div className='flex w-screen h-screen md:justify-center'>
+    <div className='flex items-center justify-center w-screen h-screen bg-white md:justify-center'>
 
-    <div className='hidden md:block'>
-      <Image src={"/LoginBackground.png"} layout='fill' alt="logBackground"/>
-    </div>
-    
+   
     
     <div className='relative flex flex-col md:my-10 md:bg-white md:rounded-lg md:pb-8 md:pgap-x-20'>
 
-<div className='self-center mt-2'>
-        <Image src={"/PostIcon.svg"} width={"40px"} height={"40px"} alt="instagram-icon"/>
-      </div>
-    
+
       
-    <div className='absolute left-6 top-5 md:left-8'>
-      <Link href='/'><Image src={"/closer.svg"} height={"15px"} width={"15px"} alt="closer"/></Link>
-    
-    </div>
-
 
     
-     <div className='mt-48 ml-10 md:mt-12'>
+     <div className='flex flex-col items-center justify-center px-8 py-4 ml-10 border'>
       
 
     <div className='text-3xl font-bold'>Sing in to Instagram</div>
@@ -94,7 +82,7 @@ const autherize = async(e:any)=>{
     
     <form onSubmit={autherize} 
 
-className='flex flex-col mt-10 space-y-6 rounded-xl w-96'>
+className='flex flex-col mt-10 space-y-6 rounded-xl'>
 
 
       <input className='py-4 pl-2 border-2 rounded-md outline-none w-80 focus:border-sky-500' value={email} onChange={(e)=>setEmail(e.target.value)}  type="text" placeholder='Email or Username'/>

@@ -88,20 +88,13 @@ for(let i=1902; i<=year; i++){
 
 
   return (
-    <div className='flex w-screen h-screen md:justify-center'>
+    <div className='flex items-center justify-center w-screen h-screen bg-white md:justify-center'>
 
-      <div className='hidden md:block'>
-        <Image src={"/LoginBackground.png"} layout='fill'/>
-      </div>
-      
-      <div className='relative md:my-10 md:bg-white md:rounded-lg md:pb-8 md:px-20 '>
+     
+      <div className='relative h-[50vh] border md:my-10 md:bg-white md:rounded-lg md:pb-8 md:px-20'>
 
 
-        
-      <div className='absolute left-6 top-5 md:left-14'>
-        <Link href='/'><Image src={"/closer.svg"} height={"15px"} width={"15px"}/></Link>
-      
-      </div>
+    
 
       
        <div className='mt-12 ml-10'>
