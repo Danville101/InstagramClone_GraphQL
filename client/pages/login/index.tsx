@@ -104,12 +104,12 @@ className='flex flex-col mt-10 space-y-6 rounded-xl w-96'>
       <div className='flex justify-between w-80' >
         
 </div>
-<div className='w-80 -mt-20 flex justify-center items-center'>
-  {error && <p className='text-red-500 text-sm'>{error.message}</p>}
+<div className='flex items-center justify-center -mt-20 w-80'>
+  {error && <p className='text-sm text-red-500'>{error.message}</p>}
 </div>
 
        
-      <input type='submit' value="Next" className='px-1 py-4 text-white duration-500 bg-black rounded-full hover:opacity-70 active:scale-90 w-80'  />
+      <input type='submit' value="Next" className='px-1 py-4 text-white duration-500 bg-black rounded-full hover:opacity-70 active:scale-90 w-80' data-testid="submit"  />
       
     </form>
       <div>
@@ -128,5 +128,8 @@ className='flex flex-col mt-10 space-y-6 rounded-xl w-96'>
   </div>
   )
 }
+
+
+export {Login}
 
 export default withApollo( Login,{getDataFromTree});

@@ -16,7 +16,7 @@ export function middleware(req: NextRequest){
      }
 
      if( access && req.url.includes("login")|| req.url.includes("register")){
-      return NextResponse.rewrite(new URL(req.url, req.url))
+      return NextResponse.rewrite(new URL("/", req.url))
      }
 
      return NextResponse.next();
