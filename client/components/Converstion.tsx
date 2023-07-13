@@ -1,22 +1,24 @@
 
 import React, { useEffect, useState, useRef } from 'react'
 import { useMutation, useQuery, useSubscription } from '@apollo/client'
-import { MESSAGE_SUB, CREATE_MESSAGE, GET_MESSAGES ,FINDUSER, GETCONVO, CONVOLIST, READ} from '../../graphql/quaries'
-import withApollo from '../../libs/withApollo'
+import { MESSAGE_SUB, CREATE_MESSAGE, GET_MESSAGES ,FINDUSER, GETCONVO, CONVOLIST, READ} from '../graphql/quaries'
+import withApollo from '../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useContext } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
+// @ts-nocheck
 import { UilImage } from '@iconscout/react-unicons'
+import { FindUserType } from '../interfaces'
 
 
-const Converstion = ({receiver}) => {
-     const { user} = useContext(PageContext)
+const Converstion = ({receiver}:any) => {
+     const { user}:any = useContext(PageContext)
      
      const checktext=()=>{
-          if(textRef.current && textRef.current.value.trim() == ''){
+          if(textRef.current && (textRef.current as HTMLInputElement).value.trim() == ''){
                setTextLength(false)  
           }
          else{
@@ -66,13 +68,17 @@ const Converstion = ({receiver}) => {
                }
           }
         })
-        bottomRef.current.scrollIntoView({behaviour:"smooth",inline: "end"})
+
+ 
         setText('')
         checktext()
       
   
     }
     
+    const chatWindowRef = useRef();
+    const textRef = useRef(null);
+    const bottomRef = useRef(null);
 
 
    useSubscription(MESSAGE_SUB, 
@@ -89,10 +95,7 @@ const Converstion = ({receiver}) => {
           setMessage(mek)
           refetch()
   
-      
-      
-      
-          bottomRef.current.scrollIntoView({behaviour:"smooth" ,block: "end"})
+     
           
        }
           
@@ -104,15 +107,12 @@ const Converstion = ({receiver}) => {
      refetch() 
 })
 
-    const chatWindowRef = useRef(null);
-    const textRef = useRef(null);
-    const bottomRef = useRef(null);
 
 
 
     
     
-    const uploadMessgaeImage = async (event) => {
+    const uploadMessgaeImage = async (event:any) => {
 
 
      event.preventDefault();
@@ -166,11 +166,11 @@ const Converstion = ({receiver}) => {
 
    useEffect(() => {
      if (chatWindowRef.current) {
-          chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight
+          (chatWindowRef.current as HTMLInputElement ).scrollTop = (chatWindowRef.current as HTMLInputElement ).scrollHeight
      }
    }, [])
 
-   const[userMessageer , setUserMessageer]=useState("")
+   const[userMessageer , setUserMessageer]=useState<FindUserType >({profilePicture:"", userName:"", _id:""})
 
    const {loading:userLoading, data:userData} = useQuery(FINDUSER,  
           
@@ -209,7 +209,7 @@ const Converstion = ({receiver}) => {
           
      }
 
-},[messages])
+},[messages, readMessage, user])
 
 
 
@@ -238,7 +238,7 @@ const Converstion = ({receiver}) => {
 
           </div>}
     
-     <div className=' w-full h-[90vh]   overflow-y-auto px-2 ' ref={chatWindowRef}>
+     <div className=' w-full h-[90vh]   overflow-y-auto px-2 ' >
  
      { loading && userLoading?<div className='flex flex-col items-center justify-center w-full h-full space-y-4'>
 
@@ -326,4 +326,4 @@ const Converstion = ({receiver}) => {
 }
 
 
-export default withApollo(Converstion ,{getDataFromTree})
+export default Converstion 

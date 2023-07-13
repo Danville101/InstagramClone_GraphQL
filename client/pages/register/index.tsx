@@ -168,5 +168,5 @@ for(let i=1902; i<=year; i++){
 
 export {Register}
 
-export default withApollo( Register,{getDataFromTree});
+export default  Register
 

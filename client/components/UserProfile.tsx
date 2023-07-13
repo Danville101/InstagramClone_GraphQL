@@ -1,19 +1,21 @@
 import React from 'react'
-import MainLayout from '../layout/MainLayout'
-import withApollo from '../../libs/withApollo'
+import MainLayout from '../pages/layout/MainLayout'
+import withApollo from '../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import { useContext } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
 import MobileBottomNav from './MobileBottomNav'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment ,UilAngleLeft} from '@iconscout/react-unicons'
 import { useQuery, useMutation } from '@apollo/client'
-import { FINDME , FINDEMYTWEET, FINDDUSERBYUSERNAME, FINDPOSTBYUSERNAME, FOLLOW, UNFOLLOW} from '../../graphql/quaries'
+import { FINDME , FINDEMYTWEET, FINDDUSERBYUSERNAME, FINDPOSTBYUSERNAME, FOLLOW, UNFOLLOW} from '../graphql/quaries'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FaBeer , FaPlay } from 'react-icons/fa'
 import { useState } from 'react'
-const UserProfile = ({username}) => {
+import { WithApolloProps } from 'next-with-apollo'
+import { NextPage } from 'next'
+const UserProfile = ({username}:any) => {
   const router = useRouter()
 
 
@@ -50,7 +52,7 @@ const[followUser]=useMutation(FOLLOW, {refetchQueries:[FINDPOSTBYUSERNAME, FINDD
       }
 
   
-     const { user} = useContext(PageContext)
+     const { user}:any = useContext(PageContext)
 
 
     const {loading:loading2, error:error2,data:data2}= useQuery(FINDPOSTBYUSERNAME,{
@@ -174,7 +176,7 @@ hhh
 
      <div className='grid grid-cols-3 gap-1 mb-12 text-white md:mb-20'>
     
-       {data2.finePostsByUsername.map((e,i)=>(
+       {data2.finePostsByUsername.map((e:any,i:number)=>(
         
          <div key={i} className='group hover:cursor-pointer' onClick={()=>goToImge(e._id)}>
           
@@ -229,4 +231,4 @@ hhh
 
 export {UserProfile}
 
-export default withApollo( UserProfile ,{getDataFromTree})
+export default  UserProfile 

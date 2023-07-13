@@ -2,8 +2,8 @@ import { PageContext } from '../pages/context/AuthContext';
 import { MockedProvider } from "@apollo/client/testing";
 import { GETCONVO, CONVOLIST } from '../graphql/quaries'
 // Wrap the component with a test provider
-import { Feeds } from '../pages/components/Feeds';
-import {Chatlist} from '../pages/components/Chatlist';
+import { Feeds } from '../components/Feeds';
+import {Chatlist} from '../components/Chatlist';
 
 import React from 'react';
 import { render, screen, waitFor , fireEvent, act} from '@testing-library/react';

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { UilSearch, UilHeart } from '@iconscout/react-unicons'
-import { SEARCHUSER } from '../../graphql/quaries'
+import { SEARCHUSER } from '../graphql/quaries'
 import { useQuery } from '@apollo/client'
 import Image from 'next/image'
-import withApollo from '../../libs/withApollo'
+import withApollo from '../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import Link from 'next/link'
 const MobileTopNav = () => {
@@ -41,7 +41,7 @@ const MobileTopNav = () => {
 </div>
      
      
-     :data.searchUser.map((e,i)=>(
+     :data.searchUser.map((e:any,i:number)=>(
           
           <div key={i} className='' >
               
@@ -64,6 +64,6 @@ const MobileTopNav = () => {
 
 
 
-export default withApollo( MobileTopNav ,{getDataFromTree})
+export default  MobileTopNav
 
 

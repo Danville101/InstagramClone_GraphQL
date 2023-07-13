@@ -60,35 +60,50 @@ const splitLink =
           )
         : httpLink;
 
-   
-   const withApollo = nextWithApollo(
-     ({ initialState, headers }) => {
-       return new ApolloClient({
-        
-         ssrMode: typeof window === "undefined",
-          
-         link: splitLink  ,
-    
-         headers: {
-          
-           ...(headers as Record<string, string>),
-         },
-         cache: new InMemoryCache().restore(initialState || {}),
-       });
-     },
-     {
-       render: ({ Page, props }) => {
-         const router = useRouter();
-       //  router.push("/")
-         return (
-   
-           <ApolloProvider client={props.apollo}>
-             <Page {...props} {...router} />
-           </ApolloProvider>
 
-         );
-       },
-     }
-   );
+
+        const client = new ApolloClient({
+
+          link: splitLink,
+        
+          cache: new InMemoryCache(),
+          ssrMode: typeof window === "undefined",
+          
+
+
+          
+        
+        });
+        
    
-   export default withApollo;
+//  const withApollo = nextWithApollo(
+//    ({ initialState, headers }) => {
+//      return new ApolloClient({
+//       
+//        ssrMode: typeof window === "undefined",
+//         
+//        link: splitLink  ,
+//   
+//        headers: {
+//         
+//          ...(headers as Record<string, string>),
+//        },
+//        cache: new InMemoryCache().restore(initialState || {}),
+//      });
+//    },
+//    {
+//      render: ({ Page, props }) => {
+//        const router = useRouter(); 
+//      //  router.push("/")
+//        return (
+//  
+//          <ApolloProvider client={props.apollo}>
+//            <Page {...props} {...router} />
+//          </ApolloProvider>
+//
+//        );
+//      },
+//    }
+//  );
+   
+   export default client;

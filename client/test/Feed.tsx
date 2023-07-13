@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { FINDME,CONVOLIST, SEARCHUSER, GETFEED} from '../graphql/quaries'
 // Wrap the component with a test provider
 import {Home} from '../pages/index'
-import { Feeds } from '../pages/components/Feeds';
+import { Feeds } from '../components/Feeds';
 
 import React from 'react';
 import { render, screen, waitFor , fireEvent, act} from '@testing-library/react';

@@ -2,22 +2,21 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { getDataFromTree  } from '@apollo/client/react/ssr'
-import withApollo from '../../libs/withApollo'
+import withApollo from '../libs/withApollo'
 import { useQuery } from '@apollo/client'
-import { GETCONVO, CONVOLIST } from '../../graphql/quaries'
+import { GETCONVO, CONVOLIST } from '../graphql/quaries'
 import Image from 'next/image'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../api/auth/[...nextauth]'
 import { useSession } from 'next-auth/react'
 
 import { useContext } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
 
 
 const Chatlist = () => {
     
      const router = useRouter()
-     const { user} = useContext(PageContext)
+     const { user}:any = useContext(PageContext)
 
 
      
@@ -44,7 +43,7 @@ const Chatlist = () => {
 
 
      
-  const goTo=(id)=>{
+  const goTo=(id:string)=>{
 
      if(router.asPath.includes("t")){ 
  
@@ -64,7 +63,7 @@ const Chatlist = () => {
 
   
 
-  const getTime=(messageDate)=>{
+  const getTime=(messageDate:any)=>{
 
 const date = new Date(messageDate)
 const timeElapsed = Date.now() - date?.getTime();
@@ -126,7 +125,7 @@ return time
                
            ):
           
-                data2?.getConversations.map((e,i)=>(
+                data2?.getConversations.map((e:any,i:number)=>(
                     
   
                     <div key={i} className='relative flex items-center' onClick={user._id != e.creator?()=>goTo(e.creatorUser._id):()=>goTo(e.participantUser._id)} >
@@ -200,6 +199,6 @@ return time
 
 export {Chatlist}
 
-export default withApollo( Chatlist,)
+export default  Chatlist
 
 

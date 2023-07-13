@@ -7,7 +7,7 @@ import { getDataFromTree } from '@apollo/client/react/ssr'
 export const PageContext = createContext({})
 
 
-const PageProvider = ({children}) => {
+const PageProvider = ({children}:any) => {
 
   const [user,setUser]=useState("")
   const {loading, error,data} = useQuery(FINDME,
@@ -33,7 +33,7 @@ const PageProvider = ({children}) => {
 }
 
 
-export default withApollo(  PageProvider, {getDataFromTree})
+export default  PageProvider
 
 
 

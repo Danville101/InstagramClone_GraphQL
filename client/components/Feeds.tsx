@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
-import withApollo from '../../libs/withApollo'
+import withApollo from '../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 
 import { useMutation, useQuery } from '@apollo/client'
-import {GETFEED , LIKETWEET, UNTWEET } from '../../graphql/quaries'
+import {GETFEED , LIKETWEET, UNTWEET } from '../graphql/quaries'
 import Image from 'next/image'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment, UilTelegramAlt, UilPlay , UilVolumeMute,UilVolume} from '@iconscout/react-unicons'
 import { FaBeer , FaPlay, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useContext } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-const Feeds = ({e}) => {
+const Feeds = ({e}:any) => {
 
   const router = useRouter()
 
@@ -21,7 +21,7 @@ const Feeds = ({e}) => {
 
   
 
-  const { user} = useContext(PageContext)
+  const { user}:any = useContext(PageContext)
 
 
   let mutedState:any
@@ -43,10 +43,11 @@ const Feeds = ({e}) => {
   }
 
   
-  const videoRef = useRef(null)
+  const videoRef = useRef<any>(null)
   const [paused , setPaused]= useState(false)
 
   const play=()=>{
+    
     if(videoRef.current.paused){
       videoRef.current.play()
       setPaused(false)
@@ -63,7 +64,7 @@ const Feeds = ({e}) => {
  const [unLike]= useMutation(UNTWEET,{refetchQueries:[GETFEED]})
 
 
-   const likeHandler=(id)=>{
+   const likeHandler=(id:string)=>{
     
     createLike({variables:{
       input:{
@@ -72,7 +73,7 @@ const Feeds = ({e}) => {
   }})
    }
    
-   const unLikeHandler=(id)=>{
+   const unLikeHandler=(id:string)=>{
     
     unLike({variables:{
       input:{
@@ -161,4 +162,4 @@ const Feeds = ({e}) => {
 }
 
 export {Feeds}
-export default withApollo( Feeds ,{getDataFromTree})
+export default  Feeds 

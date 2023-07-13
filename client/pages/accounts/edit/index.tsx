@@ -1,5 +1,5 @@
 import React from 'react'
-import MobileBottomNav from '../../components/MobileBottomNav'
+import MobileBottomNav from '../../../components/MobileBottomNav'
 import { UilAngleLeftB } from '@iconscout/react-unicons'
 import { useContext, useState } from 'react'
 import { PageContext } from '../../context/AuthContext'
@@ -26,11 +26,14 @@ const Edit = () => {
    
    
    
-      const handleSubmit = async (event) => {
+      const handleSubmit = async (event:any) => {
        event.preventDefault();
    
        const formData = new FormData();
-       formData.append('image', image);
+       if (image !== null) {
+          formData.append('image', image);
+        }
+    
    
    
         await fetch("http://localhost:4040/profilePic",{
@@ -50,7 +53,7 @@ const Edit = () => {
    
    
    
-     const handleImageChange = (event) => {
+     const handleImageChange = (event:any) => {
        setImage(event.target.files[0]);
      };
 
@@ -65,7 +68,7 @@ const Edit = () => {
 
 
 
-     const {user}= useContext(PageContext)
+     const {user}:any= useContext(PageContext)
      const [imageDropDown , setImageDropdown ]= useState(false)
 
 
@@ -93,9 +96,9 @@ const Edit = () => {
           </div>
           <div className={`${imageDropDown?"":"hidden"} w-80 flex flex-col relative space-y-4`}>
                          <button className={`${imageDropDown?"":"hidden"} absolute right-0`} onClick={()=>setImageDropdown(false)}>x</button>
-                         <div className='pt-4  '>
-      <form className='flex justify-center items-center space-x-20' onSubmit={handleSubmit}>
-      <label htmlFor="profilePic-upload" className="bg-white  appearance-none  text-black py-2 px-3 rounded-md text-xs font-medium focus:outline-none">
+                         <div className='pt-4 '>
+      <form className='flex items-center justify-center space-x-20' onSubmit={handleSubmit}>
+      <label htmlFor="profilePic-upload" className="px-3 py-2 text-xs font-medium text-black bg-white rounded-md appearance-none focus:outline-none">
 Select From Device
 </label>
         <input className='hidden ' id="profilePic-upload" type='file' onChange={handleImageChange}/>
@@ -108,7 +111,7 @@ Select From Device
                     Username
                     <input className='bg-transparent border outline-none border-[#363636] rounded-sm px-2  w-80' placeholder='Username' onChange={(e)=>setChangeInfro({...changeInfo, username:e.target.value})} type='text'/>
                     <p className='mt-4 mb-4 text-xs w-80'>
-                    In most cases, you'll be able to change your username back to dopeboyvilly for another 14 days. Learn more
+                    In most cases, you will be able to change your username back to dopeboyvilly for another 14 days. Learn more
                     </p>
                </label>
                <input type='submit' className='w-24 bg-[#2C96F6] rounded-md ' value={'Submit'}/>

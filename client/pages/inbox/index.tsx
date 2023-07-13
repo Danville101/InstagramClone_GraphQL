@@ -1,12 +1,12 @@
 import React from 'react'
 import ChatLayout from '../layout/ChatLayout'
 import MainLayout from '../layout/MainLayout'
-import MobileBottomNav from '../components/MobileBottomNav'
+import MobileBottomNav from '../../components/MobileBottomNav'
 import { UilCommentAdd, UilTelegramAlt } from '@iconscout/react-unicons'
 import withApollo from '../../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../api/auth/[...nextauth]'
+
 const index = () => {
   return (
     <div className='flex justify-center items-center md:bg-[#121212] w-screen md:px-10 '>
@@ -38,6 +38,6 @@ const index = () => {
 
 
 
-export default withApollo( index )
+export default  index 
 
 

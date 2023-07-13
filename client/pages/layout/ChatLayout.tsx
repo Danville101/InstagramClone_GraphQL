@@ -1,7 +1,7 @@
 import React from 'react'
-import Chatlist from '../components/Chatlist'
-import MobileBottomNav from '../components/MobileBottomNav'
-const ChatLayout = ({children}) => {
+import Chatlist from '../../components/Chatlist'
+import MobileBottomNav from '../../components/MobileBottomNav'
+const ChatLayout = ({children}:any) => {
   return (
     <div className='flex flex-col m-0 overflow-x-hidden md:flex md:justify-center md:item'>
 

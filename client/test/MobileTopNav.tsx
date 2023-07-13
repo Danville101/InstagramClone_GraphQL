@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Home from '../pages/index'
 import '@testing-library/jest-dom'
-import MobileTopNav from '../pages/components/MobileTopNav'
+import MobileTopNav from '../components/MobileTopNav'
 import { MockedProvider } from "@apollo/client/testing";
 
  

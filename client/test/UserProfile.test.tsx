@@ -1,12 +1,12 @@
 import { PageContext } from '../pages/context/AuthContext';
-import {MobileBottomNav} from '../pages/components/MobileBottomNav';
+import {MobileBottomNav} from '../components/MobileBottomNav';
 import { MockedProvider } from "@apollo/client/testing";
 import {  FINDDUSERBYUSERNAME, FINDPOSTBYUSERNAME} from '../graphql/quaries'
 // Wrap the component with a test provider
 import React from 'react';
 import { render, screen, waitFor , fireEvent, act} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { UserProfile } from '../pages/components/UserProfile';
+import { UserProfile } from '../components/UserProfile';
 
 
 

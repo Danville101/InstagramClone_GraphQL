@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client'
 import { FINDREELS, GETREELBYID, CREATETWEETCOMMENT } from '../../graphql/quaries'
 import withApollo from '../../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
-import MobileBottomNav from '../components/MobileBottomNav'
+import MobileBottomNav from '../../components/MobileBottomNav'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment, UilTelegramAlt, UilPlay } from '@iconscout/react-unicons'
 import { FaBeer , FaPlay } from 'react-icons/fa'
-import ReelPage from '../components/ReelPage'
+import ReelPage from '../../components/ReelPage'
 import Image from 'next/image'
 import { useContext } from 'react'
 import { PageContext } from '../context/AuthContext'
@@ -59,7 +59,7 @@ const Reels = () => {
 
 
 
-     })
+     },[data, error, list,router])
 
        if(loading){
           return(<div className='relative flex items-center justify-center w-screen h-screen py-20 text-white'>
@@ -79,5 +79,5 @@ const Reels = () => {
 
 
 
-export default withApollo( Reels )
+export default  Reels 
 

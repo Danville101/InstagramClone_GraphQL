@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 
 
-const Chat = ({session}) => {
+const Chat = () => {
 
     
      const {loading, error,data} = useQuery(GET_MESSAGES,
@@ -45,7 +45,7 @@ const Chat = ({session}) => {
      setMessage(message)
 
    
-   },[])
+   },[data])
 
 
 
@@ -118,4 +118,4 @@ const Chat = ({session}) => {
   
 }
 
- export default withApollo( Chat,{getDataFromTree})
+ export default  Chat

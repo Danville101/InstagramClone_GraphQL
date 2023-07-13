@@ -3,8 +3,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import { LOGIN} from '../graphql/quaries'
 import { useRouter } from 'next/router';
 // Wrap the component with a test provider
-import { Feeds } from '../pages/components/Feeds';
-import {Chatlist} from '../pages/components/Chatlist';
+import { Feeds } from '../components/Feeds';
+import {Chatlist} from '../components/Chatlist';
 import { RegiLogiter } from '../pages/register';
 
 import React from 'react';

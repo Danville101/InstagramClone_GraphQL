@@ -1,9 +1,8 @@
 import React from 'react'
-import MobileTopNav from '../components/MobileTopNav'
-import MobileBottomNav from '../components/MobileBottomNav'
-import AuthContext from '../context/Auth'
+import MobileTopNav from '../../components/MobileTopNav'
+import MobileBottomNav from '../../components/MobileBottomNav'
 
-const MainLayout = ({children}) => {
+const MainLayout = ({children}:any) => {
   return (
 
     <div className='flex flex-col w-screen md:flex-row md:flex'>

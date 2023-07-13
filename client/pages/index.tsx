@@ -11,8 +11,7 @@ import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment, UilTelegramA
 import { FaBeer , FaPlay, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useContext } from 'react'
 import { PageContext } from './context/AuthContext'
-import Feeds from './components/Feeds'
-import withAuth from '../libs/withAuth'
+import Feeds from '../components/Feeds'
 
 import { useRouter } from 'next/router'
 
@@ -20,7 +19,7 @@ const Home = () => {
 
   const router = useRouter()
 
-  const { user} = useContext(PageContext)
+  const { user}:any = useContext(PageContext)
 
   const {loading, error,data, refetch}= useQuery(GETFEED)
 
@@ -53,7 +52,7 @@ const Home = () => {
   }
 
   
-  const videoRef = useRef(null)
+  const videoRef = useRef<any>(null)
   const [paused , setPaused]= useState(false)
 
   const play=()=>{
@@ -75,7 +74,7 @@ useEffect(()=>{
  const [unLike]= useMutation(UNTWEET,{refetchQueries:[GETFEED]})
 
 
-   const likeHandler=(id)=>{
+   const likeHandler=(id:string)=>{
     
     createLike({variables:{
       input:{
@@ -84,7 +83,7 @@ useEffect(()=>{
   }})
    }
    
-   const unLikeHandler=(id)=>{
+   const unLikeHandler=(id:string)=>{
     
     unLike({variables:{
       input:{
@@ -107,7 +106,7 @@ useEffect(()=>{
 <div className='py-12 '>
 
   
-            {data.getFeed.map((e,i)=>(
+            {data.getFeed.map((e:any,i:number )=>(
 
                  <Feeds e={e} key={i}/>  
             ))}
@@ -118,4 +117,4 @@ useEffect(()=>{
 }
 
 export {Home}
-export default withApollo(  Home ,{getDataFromTree})
+export default   Home 

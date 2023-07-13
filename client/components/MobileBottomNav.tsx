@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { UilEstate , UilMessage, UilFocusAdd, UilTelegramAlt, UilFilm, UilUser, UilImage, UilPlayCircle, UilTimes, UilArrowLeft, UilSearch} from '@iconscout/react-unicons'
 import { useQuery } from '@apollo/client'
-import { FINDME,CONVOLIST ,MESSAGE_SUB, SEARCHUSER} from '../../graphql/quaries'
+import { FINDME,CONVOLIST ,MESSAGE_SUB, SEARCHUSER} from '../graphql/quaries'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getDataFromTree } from '@apollo/client/react/ssr'
-import withApollo from '../../libs/withApollo'
+import withApollo from '../libs/withApollo'
 import { useContext } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
 import { useRouter } from 'next/router'
 import { useSubscription } from '@apollo/client'
 import { useRef } from 'react'
 import { FaBeer , FaPlay } from 'react-icons/fa'
+import { CONVOLISTType } from '../interfaces'
 
 const MobileBottomNav = () => {
 
-     const { user }  = useContext(PageContext)
+     const { user }:any  = useContext(PageContext)
      const router=useRouter()
 
      const [userdata, setUser]=useState()
@@ -24,7 +25,7 @@ const MobileBottomNav = () => {
      const[text, setText]=useState("")
 
 
-     const[convo, setConvo]=useState([])
+     const[convo, setConvo]=useState<CONVOLISTType []>([])
      const {loading:loading2, error:error2,data:data2, refetch} = useQuery(CONVOLIST,{
           onCompleted(data) {
               
@@ -84,7 +85,7 @@ const MobileBottomNav = () => {
             const [upload, setUpload] = useState(null)
 
             const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files?.[0]
+              const file :any = event.target.files?.[0]
               if (file) {
                setUpload(file)
                 const reader = new FileReader()
@@ -97,7 +98,7 @@ const MobileBottomNav = () => {
 
 
 
-            const uploadPost = async (event) => {
+            const uploadPost = async (event:any) => {
                event.preventDefault();
                if(upload){
                const formData = new FormData();
@@ -140,7 +141,7 @@ const MobileBottomNav = () => {
         
 
 
-          const videoRef = useRef(null)
+          const videoRef = useRef<any>(null)
           const [paused , setPaused]= useState(false)
         
           const play=()=>{
@@ -387,7 +388,7 @@ Select From Device
 </div>
      
      
-     :data3.searchUser.map((e,i)=>(
+     :data3.searchUser.map((e:any,i:number)=>(
           
           <div key={i} className='' >
               
@@ -432,4 +433,4 @@ Select From Device
 
 export {MobileBottomNav}
 
-export default withApollo(MobileBottomNav ,{getDataFromTree})
+export default MobileBottomNav

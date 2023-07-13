@@ -1,27 +1,33 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { FINDREELS , CREATETWEETCOMMENT,GETREELBYID, CREATETWEETCOMMENTLIKE, CREATETWEETCOMMENTUNLIKE, LIKEREEL, UNLIKEREEL} from '../../graphql/quaries'
-import withApollo from '../../libs/withApollo'
+import { FINDREELS , CREATETWEETCOMMENT,GETREELBYID, CREATETWEETCOMMENTLIKE, CREATETWEETCOMMENTUNLIKE, LIKEREEL, UNLIKEREEL} from '../graphql/quaries'
+import withApollo from '../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
-import MobileBottomNav from '../components/MobileBottomNav'
+import MobileBottomNav from './MobileBottomNav'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment, UilTelegramAlt, UilPlay, UilVolume, UilVolumeMute, UilTimes } from '@iconscout/react-unicons'
 import { method } from 'express/lib/request'
 import Image from 'next/image'
 import { useContext, useEffect } from 'react'
-import { PageContext } from '../context/AuthContext'
+import { PageContext } from '../pages/context/AuthContext'
 import { useMutation } from '@apollo/client'
 import { FaBeer , FaPlay, FaHeart, FaRegHeart } from 'react-icons/fa'
 
 
-const ReelPage = ({e}) => {
+interface PageContextType {
+  user:any,
+   overflowScroll:any, 
+  setOverflowScroll:any
+}
 
-    const {user, overflowScroll, setOverflowScroll}=useContext(PageContext)
+const ReelPage = ({e}:any) => {
+
+  const { user, overflowScroll, setOverflowScroll }= useContext<PageContextType|any>(PageContext);
 
 
 
-     const videoRef = useRef(null)
+     const videoRef = useRef<any>(null)
      const [paused , setPaused]= useState(false)
    
      const play=()=>{
@@ -81,7 +87,7 @@ const ReelPage = ({e}) => {
     const [unLike]= useMutation(UNLIKEREEL,{refetchQueries:[GETREELBYID]})
 
 
-    const likeHandler=(id)=>{
+    const likeHandler=(id:string)=>{
        
       createLike({variables:{
         input:{
@@ -90,7 +96,7 @@ const ReelPage = ({e}) => {
     }})
      }
      
-    const unLikeHandler=(id)=>{
+    const unLikeHandler=(id:string)=>{
        
       unLike({variables:{
         input:{
@@ -110,7 +116,7 @@ const ReelPage = ({e}) => {
     const [unLikeComment]= useMutation(CREATETWEETCOMMENTUNLIKE,{refetchQueries:[GETREELBYID]})
    
    
-      const likeCommentHandler=(id)=>{
+      const likeCommentHandler=(id:string)=>{
        
        createCommentLike({variables:{
          input:{
@@ -119,7 +125,7 @@ const ReelPage = ({e}) => {
      }})
       }
       
-      const unLikeCommentHandler=(id)=>{
+      const unLikeCommentHandler=(id:string)=>{
        
          unLikeComment({variables:{
          input:{
@@ -133,14 +139,14 @@ const ReelPage = ({e}) => {
 
 
 
-    const textRef= useRef(null)
+    const textRef= useRef<any>(null)
 
     const [text, setText]=useState("")
    
 
     const [createComment]= useMutation(CREATETWEETCOMMENT,{refetchQueries:[GETREELBYID]})
 
-    const createCommentHandler=(id)=>{
+    const createCommentHandler=(id:any)=>{
          createComment({variables:{
               input:{
                    postId:id,
@@ -156,7 +162,7 @@ const ReelPage = ({e}) => {
     const [textEnterd, setTextEnterded]=useState(false)
 
 
-    const textHandeler=(e)=>{
+    const textHandeler=(e:any)=>{
 
          setText(e.target.value)
             if(textRef.current.value!=""){
@@ -186,7 +192,7 @@ const ReelPage = ({e}) => {
 <div className='w-full h-full px-4 py-4'>
 
 <div className='h-[90%] overflow-y-auto'>
-  {e.comments.map((e,i)=>(
+  {e.comments.map((e:any,i:number)=>(
        <div className="flex flex-col space-y-2 " key={i}>
        <div className='relative flex items-center'>
             <Image src={e.findUser.profilePicture} height={30} width={30} alt='' className='rounded-full'/>
@@ -323,4 +329,4 @@ onMouseLeave={()=>{videoRef.current.pause()}}
 
 
 
-export default withApollo( ReelPage ,{getDataFromTree})
+export default  ReelPage

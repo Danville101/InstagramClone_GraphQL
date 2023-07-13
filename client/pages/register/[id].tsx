@@ -37,4 +37,4 @@ const User = ({query}:any) => {
   )
 }
 
-export default withApollo( User,{getDataFromTree})
+export default  User

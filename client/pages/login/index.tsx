@@ -120,4 +120,4 @@ className='flex flex-col mt-10 space-y-6 rounded-xl'>
 
 export {Login}
 
-export default withApollo( Login,{getDataFromTree});
+export default Login

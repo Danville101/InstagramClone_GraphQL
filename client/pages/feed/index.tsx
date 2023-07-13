@@ -100,7 +100,7 @@ const Feed = () => {
         <input className="py-2 pl-4 rounded-full w-72 bg-black/5" type="text" placeholder='Search'/>
 
         <div className="rounded-xl bg-black/5 h-[80rem] w-72 mt-12 pl-4">
-          <h3 className='text-xl font-bold'>What's Happening</h3>
+          <h3 className='text-xl font-bold'>What is Happening</h3>
         </div>
      
 
@@ -123,4 +123,4 @@ const Feed = () => {
   )
 }
 
- export default withApollo( Feed,{getDataFromTree})
+ export default Feed

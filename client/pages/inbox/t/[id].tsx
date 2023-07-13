@@ -10,15 +10,14 @@ import client from '../../../graphql/client';
 
 
 
-import { authOptions } from '../../api/auth/[...nextauth]';
-
 import { useSession } from 'next-auth/react'
-import Converstion from '../../components/Converstion';
+import Converstion from '../../../components/Converstion';
 import { getServerSession } from "next-auth/next"
+import { NextPageContext } from 'next';
 
 //session?.user.id
 
-const T = ({id}) => {
+const T = ({id}:any) => {
 
      
            // const router = useRouter()
@@ -38,7 +37,7 @@ const T = ({id}) => {
   )
 }
 
-export default withApollo(T)
+export default T
 
 
 
@@ -46,7 +45,7 @@ export default withApollo(T)
    
    
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: NextPageContext) {
 
   const id = context.query.id
 

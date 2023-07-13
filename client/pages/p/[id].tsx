@@ -9,9 +9,10 @@ import { FaBeer , FaPlay, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useContext } from 'react'
 import { PageContext } from '../context/AuthContext'
 import { useMutation } from '@apollo/client'
+import { NextPageContext } from 'next'
 
 const DetailPost = () => {
-     const { user} = useContext(PageContext)
+     const { user}:any = useContext(PageContext)
      const router = useRouter()
 
      const id =  router.query.id
@@ -28,12 +29,12 @@ const DetailPost = () => {
      })
      const [text , setText]=  useState("")
 
-     const textRef= useRef(null)
+     const textRef= useRef<any>(null)
     
 
      const [createComment]= useMutation(CREATETWEETCOMMENT,{refetchQueries:[GETDETAILTWEET]})
 
-     const createCommentHandler=(id)=>{
+     const createCommentHandler=(id:string)=>{
           createComment({variables:{
                input:{
                     postId:id,
@@ -50,7 +51,7 @@ const DetailPost = () => {
      const [unLikeComment]= useMutation(CREATETWEETCOMMENTUNLIKE,{refetchQueries:[GETDETAILTWEET]})
     
     
-       const likeCommentHandler=(id)=>{
+       const likeCommentHandler=(id:any)=>{
         
         createCommentLike({variables:{
           input:{
@@ -59,7 +60,7 @@ const DetailPost = () => {
       }})
        }
        
-       const unLikeCommentHandler=(id)=>{
+       const unLikeCommentHandler=(id:any)=>{
         
           unLikeComment({variables:{
           input:{
@@ -76,7 +77,7 @@ const DetailPost = () => {
        const [unLike]= useMutation(UNTWEET,{refetchQueries:[GETDETAILTWEET]})
       
       
-         const likeHandler=(id)=>{
+         const likeHandler=(id:any)=>{
           
           createLike({variables:{
             input:{
@@ -85,7 +86,7 @@ const DetailPost = () => {
         }})
          }
          
-         const unLikeHandler=(id)=>{
+         const unLikeHandler=(id:any)=>{
           
           unLike({variables:{
             input:{
@@ -116,7 +117,7 @@ const DetailPost = () => {
         }
       
         
-        const videoRef = useRef(null)
+        const videoRef = useRef<any>(null)
         const [paused , setPaused]= useState(false)
       
         const play=()=>{
@@ -211,7 +212,7 @@ const DetailPost = () => {
                </div>
              </div>
              <div className={`flex flex-col  mt-4 space-y-1 overflow-y-scroll h-[20vh] ${!showeComments && "hidden md:flex md:flex-col" } md:h-[56vh] md:overflow-y-scroll `}>
-                  {data.findPost.comments.map((e,i)=>(
+                  {data.findPost.comments.map((e:any,i:number)=>(
                <div className="flex flex-col " key={i}>
                     <div className='relative flex items-center'>
                          <Image src={e.findUser.profilePicture} height={30} width={30} alt='' className='rounded-full'/>
@@ -270,9 +271,9 @@ const DetailPost = () => {
 }
 
 
-export default withApollo( DetailPost )
+export default  DetailPost 
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:NextPageContext) {
      
      const {id}=context.query
 

@@ -3,21 +3,22 @@ import { useQuery } from '@apollo/client'
 import { FINDREELS, GETREELBYID, CREATETWEETCOMMENT } from '../../graphql/quaries'
 import withApollo from '../../libs/withApollo'
 import { getDataFromTree } from '@apollo/client/react/ssr'
-import MobileBottomNav from '../components/MobileBottomNav'
+import MobileBottomNav from '../../components/MobileBottomNav'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { UilUserPlus, UilSetting, UilThLarge, UilHeart, UilComment, UilTelegramAlt, UilPlay } from '@iconscout/react-unicons'
 import { FaBeer , FaPlay } from 'react-icons/fa'
-import ReelPage from '../components/ReelPage'
+import ReelPage from '../../components/ReelPage'
 import Image from 'next/image'
 import { useContext } from 'react'
 import { PageContext } from '../context/AuthContext'
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
+import { NextPageContext } from 'next'
 
 
-const Reels = ({id}) => {
+const Reels = ({id}:any) => {
 
      const router = useRouter()
 
@@ -47,7 +48,7 @@ const Reels = ({id}) => {
                }
           }
      })
-     const {overflowScroll, setOverflowScroll, reelIndex, setReelIndex}=useContext(PageContext)
+     const {overflowScroll, setOverflowScroll, reelIndex, setReelIndex}=useContext<any>(PageContext)
 
 
      const push=()=>{
@@ -119,13 +120,13 @@ const Reels = ({id}) => {
 
 
 
-export default withApollo( Reels )
+export default  Reels 
 
 
 
 
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:NextPageContext) {
 
      const {id}= context.query
 

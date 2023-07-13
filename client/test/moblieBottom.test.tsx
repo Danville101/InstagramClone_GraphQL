@@ -1,5 +1,5 @@
  import { PageContext } from '../pages/context/AuthContext';
-import {MobileBottomNav} from '../pages/components/MobileBottomNav';
+import {MobileBottomNav} from '../components/MobileBottomNav';
 import { MockedProvider } from "@apollo/client/testing";
 import { FINDME,CONVOLIST, SEARCHUSER} from '../graphql/quaries'
 // Wrap the component with a test provider
